@@ -47,7 +47,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
               <Text style={styles.cardSubtitle}>new Plantation</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.card} activeOpacity={0.7}>
+            <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('AdvanceWeather')} activeOpacity={0.7}>
               <Image source={require('./assets/Images/HomePage/weather.png')} style={styles.cardImage} />
               <Text style={styles.cardTitle}>Weather</Text>
               <Text style={styles.cardSubtitle}>forecasting</Text>
