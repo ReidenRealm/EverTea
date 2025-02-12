@@ -20,10 +20,10 @@ export default function FinancialTracker({ navigation }: HomeScreenProps) {
             <Text style={styles.greetingText}>
               <Text style={styles.boldText}>Plantation Journey</Text>
             </Text>
-            <TouchableOpacity style={styles.bottomButton} 
+            <TouchableOpacity style={styles.bottomButton}
               onPress={() => navigation.navigate('Home')} activeOpacity={0.7}>
               <Image source={require('./assets/Home.png')} style={styles.navigationIcon} />
-            </TouchableOpacity>        
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.content}>
