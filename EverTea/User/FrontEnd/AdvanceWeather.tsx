@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, Button } from 'react-native'
+import { View, Text, StyleSheet, Image, Button , ScrollView} from 'react-native'
 import React from 'react'
 
 const app = () => {
@@ -7,32 +7,52 @@ const app = () => {
       <View style = {styles.box}>
         <Text style={styles.city}>Galle</Text>
         <View style={styles.line} /> {/* Horizontal line */}
-        <View style={styles.flexbox}>
 
-          <View style={styles.box1}><Text style={styles.date}>Sun</Text> <Text style={styles.dateNo}>Feb 10</Text>
-            <Image source={require('./assets/Images/HomePage/AdvanceWeather/sunny_color.png')} style={{ width: 40, height: 40 }} />
-            <Text style={styles.climate}>Sunny</Text> <Text style={styles.cold}>15-20C</Text>  <Text style={styles.cold}>AQI 67</Text>
-          </View>
-          
-          <View style={styles.box1}><Text style={styles.date}>Mon</Text> <Text style={styles.dateNo}>Feb 11</Text>
-            <Image source={require('./assets/Images/HomePage/AdvanceWeather/sun_cloudy_color.png')} style={{ width: 40, height: 40 }} />
-            <Text style={styles.climate}>Cloudy</Text> <Text style={styles.cold}>16-22C</Text> <Text style={styles.cold}>AQI 71</Text>
-          </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={true} style={{ flexDirection: 'row', marginVertical: 10 }}>
 
-          <View style={styles.box1}><Text style={styles.date}>Tue</Text> <Text style={styles.dateNo}>Feb 12</Text>
-            <Image source={require('./assets/Images/HomePage/AdvanceWeather/lightning_color.png')} style={{ width: 40, height: 40 }} />
-            <Text style={styles.climate}>Lightning</Text> <Text style={styles.cold}>17-20C</Text> <Text style={styles.cold}>AQI 65</Text>
-          </View>
+              <View style={styles.flexbox}>
 
-          <View style={styles.box1}><Text style={styles.date}>wed</Text> <Text style={styles.dateNo}>Feb 13</Text>
-            <Image source={require('./assets/Images/HomePage/AdvanceWeather/heavy_rain_color.png')} style={{ width: 40, height: 40 }} />
-            <Text style={styles.climate}>Heavy rain</Text> <Text style={styles.cold}>16-21C</Text> <Text style={styles.cold}>AQI 70</Text>
-          </View>
+                <View style={styles.box1}><Text style={styles.date}>Sun</Text> <Text style={styles.dateNo}>Feb 10</Text>
+                  <Image source={require('./assets/Images/HomePage/AdvanceWeather/sunny_color.png')} style={{ width: 40, height: 40 }} />
+                  <Text style={styles.climate}>Sunny</Text> <Text style={styles.cold}>15-20C</Text>  <Text style={styles.cold}>AQI 67</Text>
+                </View>
 
+                <View style={styles.box1}><Text style={styles.date}>Mon</Text> <Text style={styles.dateNo}>Feb 11</Text>
+                  <Image source={require('./assets/Images/HomePage/AdvanceWeather/sun_cloudy_color.png')} style={{ width: 40, height: 40 }} />
+                  <Text style={styles.climate}>Cloudy</Text> <Text style={styles.cold}>16-22C</Text> <Text style={styles.cold}>AQI 71</Text>
+                </View>
+
+                <View style={styles.box1}><Text style={styles.date}>Tue</Text> <Text style={styles.dateNo}>Feb 12</Text>
+                  <Image source={require('./assets/Images/HomePage/AdvanceWeather/lightning_color.png')} style={{ width: 40, height: 40 }} />
+                  <Text style={styles.climate}>Lightning</Text> <Text style={styles.cold}>17-20C</Text> <Text style={styles.cold}>AQI 65</Text>
+                </View>
+
+                <View style={styles.box1}><Text style={styles.date}>wed</Text> <Text style={styles.dateNo}>Feb 13</Text>
+                  <Image source={require('./assets/Images/HomePage/AdvanceWeather/heavy_rain_color.png')} style={{ width: 40, height: 40 }} />
+                  <Text style={styles.climate}>Heavy rain</Text> <Text style={styles.cold}>16-21C</Text> <Text style={styles.cold}>AQI 70</Text>
+                </View>
+
+                <View style={styles.box1}><Text style={styles.date}>Thu</Text> <Text style={styles.dateNo}>Feb 13</Text>
+                  <Image source={require('./assets/Images/HomePage/AdvanceWeather/heavy_rain_color.png')} style={{ width: 40, height: 40 }} />
+                  <Text style={styles.climate}>Heavy rain</Text> <Text style={styles.cold}>16-21C</Text> <Text style={styles.cold}>AQI 70</Text>
+                </View>
+
+                <View style={styles.box1}><Text style={styles.date}>Sat</Text> <Text style={styles.dateNo}>Feb 13</Text>
+                  <Image source={require('./assets/Images/HomePage/AdvanceWeather/heavy_rain_color.png')} style={{ width: 40, height: 40 }} />
+                  <Text style={styles.climate}>Heavy rain</Text> <Text style={styles.cold}>16-21C</Text> <Text style={styles.cold}>AQI 70</Text>
+                </View>
+
+                <View style={styles.box1}><Text style={styles.date}>wed</Text> <Text style={styles.dateNo}>Feb 13</Text>
+                  <Image source={require('./assets/Images/HomePage/AdvanceWeather/heavy_rain_color.png')} style={{ width: 40, height: 40 }} />
+                  <Text style={styles.climate}>Heavy rain</Text> <Text style={styles.cold}>16-21C</Text> <Text style={styles.cold}>AQI 70</Text>
+                </View>
+
+              </View>
+
+            </ScrollView>
         </View>
-      </View>
 
-      <View style={styles.flexbox}>
+      <View style={styles.flexbox1}>
 
         <View  style={styles.box11}>
           <Text style={styles.date}>Now</Text> <Image source={require('./assets/Images/HomePage/AdvanceWeather/moon.png')} style={{ width: 28, height: 28 ,margin:10 }} /> <Text>21'</Text>
@@ -150,8 +170,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'rgba(250, 250, 250, 0.70)',
   },
-  //flex box
   flexbox:{
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '90%',
+
+  },
+  //flex box
+  flexbox1:{
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '90%',
@@ -171,7 +197,7 @@ const styles = StyleSheet.create({
   },
   box1: {
     height:125,
-    width:60,
+    width:80,
     // backgroundColor:'green',
     alignItems: 'center'
   },
