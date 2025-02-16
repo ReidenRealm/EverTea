@@ -8,11 +8,11 @@ const app = () => {
         <Text style={styles.city}>Galle</Text>
         <View style={styles.line} /> {/* Horizontal line */}
 
-        <ScrollView horizontal showsHorizontalScrollIndicator={true} style={{ flexDirection: 'row', marginVertical: 10 }}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={true} style={{ flexDirection: 'row', marginVertical: 10 }} showsVerticalScrollIndicator={false}>
 
               <View style={styles.flexbox}>
 
-                <View style={styles.box1}><Text style={styles.date}>Sun</Text> <Text style={styles.dateNo}>Feb 10</Text>
+                <View style={styles.box1}><Text style={styles.date}>Today(Sun)</Text> <Text style={styles.dateNo}>Feb 10</Text>
                   <Image source={require('./assets/Images/HomePage/AdvanceWeather/sunny_color.png')} style={{ width: 40, height: 40 }} />
                   <Text style={styles.climate}>Sunny</Text> <Text style={styles.cold}>15-20C</Text>  <Text style={styles.cold}>AQI 67</Text>
                 </View>
@@ -89,6 +89,7 @@ const app = () => {
 
           <View style={styles.button}><Text style={styles.buttonText}>See all</Text></View>
       </View></View>
+
       
     </View>
   )
@@ -243,3 +244,120 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 })
+
+
+// import React, { useState, useEffect } from 'react';
+// import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+
+// const App = () => {
+//   const [dates, setDates] = useState<{ day: string; date: string }[]>([]);
+
+//   useEffect(() => {
+//     // Function to generate the next 7 days
+//     const generateDates = () => {
+//       const today = new Date();
+//       const options: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'short', day: 'numeric' };
+      
+//       let newDates = [];
+//       for (let i = 0; i < 7; i++) {
+//         const nextDate = new Date();
+//         nextDate.setDate(today.getDate() + i);
+//         const formattedDate = nextDate.toLocaleDateString('en-US', options).split(' ');
+
+//         newDates.push({
+//           day: formattedDate[0], // e.g., "Sun"
+//           date: `${formattedDate[1]} ${formattedDate[2]}`, // e.g., "Feb 10"
+//         });
+//       }
+//       setDates(newDates);
+//     };
+
+//     generateDates();
+//   }, []);
+
+//   return (
+//     <View style={styles.container}>
+//       <View style={styles.box}>
+//         <Text style={styles.city}>Galle</Text>
+//         <View style={styles.line} />
+
+//         <ScrollView horizontal showsHorizontalScrollIndicator={true} style={{ flexDirection: 'row', marginVertical: 10 }}>
+//           <View style={styles.flexbox}>
+//             {dates.map((item, index) => (
+//               <View key={index} style={styles.box1}>
+//                 <Text style={styles.date}>{item.day}</Text>
+//                 <Text style={styles.dateNo}>{item.date}</Text>
+//                 <Image source={require('./assets/Images/HomePage/AdvanceWeather/sunny_color.png')} style={{ width: 40, height: 40 }} />
+//                 <Text style={styles.climate}>Sunny</Text>
+//                 <Text style={styles.cold}>15-20C</Text>
+//                 <Text style={styles.cold}>AQI 67</Text>
+//               </View>
+//             ))}
+//           </View>
+//         </ScrollView>
+//       </View>
+//     </View>
+//   );
+// };
+
+// export default App;
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     flexDirection: 'column',
+//     backgroundColor: 'rgb(103, 199, 236)',
+//     alignItems: 'center',
+//   },
+//   box: {
+//     width: 350,
+//     height: 200,
+//     backgroundColor: 'rgba(20, 41, 70, 0.66)',
+//     alignItems: 'center',
+//     justifyContent: 'flex-start',
+//     borderRadius: 20,
+//     marginBottom: 50,
+//     marginTop: 80,
+//   },
+//   city: {
+//     marginTop: 14,
+//     marginRight: 270,
+//     fontSize: 18,
+//     fontWeight: 'bold',
+//     color: 'white',
+//   },
+//   line: {
+//     width: '90%',
+//     height: 0.4,
+//     backgroundColor: 'white',
+//     margin: 10,
+//     opacity: 0.6,
+//   },
+//   flexbox: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-around',
+//     width: '90%',
+//   },
+//   box1: {
+//     height: 125,
+//     width: 80,
+//     alignItems: 'center',
+//   },
+//   date: {
+//     fontWeight: 'bold',
+//     color: 'white',
+//   },
+//   dateNo: {
+//     fontSize: 12,
+//     color: 'rgba(250, 250, 250, 0.70)',
+//   },
+//   climate: {
+//     fontSize: 11,
+//     fontWeight: 'bold',
+//     color: 'white',
+//   },
+//   cold: {
+//     fontSize: 10,
+//     color: 'rgba(250, 250, 250, 0.70)',
+//   },
+// });
