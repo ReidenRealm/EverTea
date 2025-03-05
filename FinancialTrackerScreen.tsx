@@ -80,7 +80,6 @@ const FinancialTrackerScreen = () => {
 
 const styles = StyleSheet.create({
   container:{
-    flex: 1,
     backgroundColor: '#e8e6e6',
   },
   header: {

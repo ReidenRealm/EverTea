@@ -1,6 +1,9 @@
 import React from 'react';
 import { StatusBar, StyleSheet, View } from 'react-native';
 import FinancialTrackerScreen from './FinancialTrackerScreen';
+import ViewFullReport from './ViewFullReport';
+import NavigationBar from './NavigationBar';
+import ExploreMore from './ExploreMore';
 
 const App = (): React.JSX.Element => {
 
@@ -8,6 +11,9 @@ const App = (): React.JSX.Element => {
     <View style={styles.container}>
       <StatusBar barStyle="dark-content"/>
       <FinancialTrackerScreen />
+      <ViewFullReport />
+      <NavigationBar/>
+      <ExploreMore/>
     </View>
   );
 };
@@ -15,7 +21,7 @@ const App = (): React.JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#e8e6e6',
   },
 });
 
