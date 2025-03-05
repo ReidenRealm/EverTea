@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
     right:0,
     marginVertical: 10,
-
+    flexWrap: 'wrap',
   },
   incomeBox:{
     backgroundColor: '#fff6ec',

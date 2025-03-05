@@ -12,8 +12,8 @@ const App = (): React.JSX.Element => {
       <StatusBar barStyle="dark-content"/>
       <FinancialTrackerScreen />
       <ViewFullReport />
-      <NavigationBar/>
       <ExploreMore/>
+      <NavigationBar/>
     </View>
   );
 };
