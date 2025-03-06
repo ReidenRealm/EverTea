@@ -26,7 +26,8 @@ const header = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 30,
+    paddingTop: 40,
+    paddingBottom:20,
   },
   header: {
     flexDirection: 'row',
@@ -46,7 +47,8 @@ const styles = StyleSheet.create({
   profile: {
     height:45,
     width:45,
-    left:210,
+    top:10,
+    left:310,
     borderRadius:20,
     elevation: 10,
   }
