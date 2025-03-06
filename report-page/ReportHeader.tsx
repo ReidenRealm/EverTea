@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Text, View, StyleSheet,SafeAreaView,StatusBar,Image, TouchableOpacity} from 'react-native';
 
 
-const Header = () => {
+const ReportHeader = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle= "dark-content" />
@@ -17,7 +17,7 @@ const Header = () => {
       </View>
 
       {/* Header */}
-      <Text style={styles.topic}>Financial Tracker</Text>
+      <Text style={styles.topic}>Financial Report</Text>
     </SafeAreaView>
   );
 };
@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     position:'absolute',
   },
   topic: {
- 
     fontSize: 24,
     fontWeight: 'bold',
     textAlign:'center',
@@ -54,4 +53,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Header;
+export default ReportHeader;

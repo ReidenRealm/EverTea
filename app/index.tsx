@@ -1,17 +1,19 @@
 import { Text, View } from "react-native";
 import HomePage from "@/home-page/HomePage";
+import ReportPage from "@/report-page/ReportPage";
 
 export default function Index() {
   return (
     <View
       style={{
-        justifyContent: "center",
-        alignItems: "center",
+  
         backgroundColor: '#e8e6e6',
+        margin:0, 
       }}
     >
       <Text>
-        <HomePage/>
+        {/* <HomePage/> */}
+        <ReportPage />
       </Text>
     </View>
   );
