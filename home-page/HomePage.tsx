@@ -13,7 +13,7 @@ const HomePage = () => {
         <IncomeCard/>
         <ViewFullReport/>
         <ExploreMore/>
-        {/* <NavigationBar/> */}
+        <NavigationBar/>
     </View>
   );
 };
