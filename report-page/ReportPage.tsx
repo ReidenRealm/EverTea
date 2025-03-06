@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Text, View, StyleSheet, StatusBar, SafeAreaView } from 'react-native';
 import ReportHeader from './ReportHeader';
 import IncomeExpenseTab from './IncomeExpenseTab';
-
+import IncomeCard from './IncomeCard';
 
 const ReportPage = () => {
   return (
@@ -11,6 +11,7 @@ const ReportPage = () => {
         <View>
           <ReportHeader />
           <IncomeExpenseTab />
+          <IncomeCard />
         </View>
     </SafeAreaView>
   );

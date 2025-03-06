@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems:'center',
     marginVertical: 20,
+    
   },
   toggleContainer:{
     flexDirection:'row',
