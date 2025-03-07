@@ -3,7 +3,8 @@ import { Text, View, StyleSheet, StatusBar, SafeAreaView } from 'react-native';
 import ReportHeader from './ReportHeader';
 import IncomeExpenseTab from './IncomeExpenseTab';
 import IncomeCard from './IncomeCard';
-
+import ReportMessages from './ReportMessages';
+import NavigationBar from './NavigationBar';
 const ReportPage = () => {
   return (
     <SafeAreaView style={styles.safeContainer}>
@@ -12,6 +13,8 @@ const ReportPage = () => {
           <ReportHeader />
           <IncomeExpenseTab />
           <IncomeCard />
+          <ReportMessages />
+          <NavigationBar/>
         </View>
     </SafeAreaView>
   );
@@ -25,5 +28,6 @@ const styles = StyleSheet.create({
     padding:0,
     margin:0,
     width:'100%',
+    
   }
 });

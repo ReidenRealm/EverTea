@@ -12,8 +12,8 @@ export default function Index() {
       }}
     >
       <Text>
-        {/* <HomePage/> */}
-        <ReportPage />
+        <HomePage/>
+        {/* <ReportPage /> */}
       </Text>
     </View>
   );

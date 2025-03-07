@@ -33,6 +33,8 @@ const styles = StyleSheet.create({
     left:10,
     borderRadius:20,
     elevation:10,
+    zIndex:1,
+    bottom:5,
   },
   date:{
     fontWeight:'bold',

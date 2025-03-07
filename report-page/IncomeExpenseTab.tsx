@@ -8,7 +8,10 @@ const IncomeExpenseTab = () => {
       <View style={styles.toggleContainer}>
         {/* Income Button */}
         <TouchableOpacity
-          style={[styles.toggleButton, selected === "income" && styles.activeButton]}
+          style={[
+            styles.toggleButton,
+            selected === "income" && { backgroundColor: "#008C5E" }
+          ]}
           onPress={() => setSelected("income")}
         >
           <Text style={[styles.toggleText, selected === "income" && styles.activeText]}>
@@ -18,7 +21,10 @@ const IncomeExpenseTab = () => {
 
         {/* Expense Button */}
         <TouchableOpacity
-          style={[styles.toggleButton, selected === "expenses" && styles.activeButton]}
+          style={[
+            styles.toggleButton,
+            selected === "expenses" && { backgroundColor: "#FF3B30" }
+          ]}
           onPress={() => setSelected("expenses")}
         >
           <Text style={[styles.toggleText, selected === "expenses" && styles.activeText]}>
@@ -37,7 +43,7 @@ export default IncomeExpenseTab;
 const styles = StyleSheet.create({
   container: {
     alignItems:'center',
-    marginVertical: 20,
+    marginVertical: 1,
     
   },
   toggleContainer:{
@@ -54,9 +60,6 @@ const styles = StyleSheet.create({
     borderRadius:20,
     paddingLeft:50,
     paddingRight:50,
-  },
-  activeButton:{
-    backgroundColor:'#008C5E',
   },
   toggleText:{
     fontSize:16,
