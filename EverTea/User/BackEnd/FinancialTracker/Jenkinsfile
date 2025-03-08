@@ -2,6 +2,12 @@ pipeline{
     agent any
     environment {
         commitsha = "${env.GIT_COMMIT}" // Define commit SHA (unique id of last github commit) globally
+        aws_region = 'eu-north-1'
+        aws_credentials = 'beanstalk-token'
+        aws_application_name = 'EverTea'
+        aws_environment_name = 'EverTea-env'
+        aws_key_prefix = 'EverTea/builds'
+        aws_root_object = 'app.jar'
     }
     tools{
         maven "maven_in"
@@ -12,6 +18,8 @@ pipeline{
                 checkout scmGit(branches: [[name: 'Financial-Tracker-Backend']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/ReidenRealm/EverTea']])
                 // Create the jar file
                 sh 'cd EverTea/User/Backend/FinancialTracker && ls -la && mvn clean install'
+                // Copy File to AWS root object, artifact to be deployed to AWS Beanstalk
+                sh 'mv EverTea/User/Backend/FinancialTracker/target/EverTea.jar app.jar'
             }
         }
         stage("Build docker image"){
@@ -22,7 +30,7 @@ pipeline{
                 }
             }
         }
-        stage("Push image to hub"){
+        stage("Push image to docker hub"){
             steps{
                 script{
                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
@@ -32,7 +40,19 @@ pipeline{
                 }
             }
         }
-
+        stage("Deploy to AWS Beanstalk"){
+            steps{
+                step($class: 'AWSEBDeploymentBuilder',
+                    credentialId: aws_credentials,
+                    awsRegion: aws_region,
+                    applicationName: aws_application_name,
+                    environmentName: aws_environment_name,
+                    keyPrefix: aws_key_prefix,
+                    rootObject: aws_root_object,
+                    versionLabelFormat: "${BUILD_NUMBER}",
+                    )
+            }
+        }
     }
     post {
             success {
