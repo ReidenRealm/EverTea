@@ -21,9 +21,9 @@ const ReportMessages = () => {
         <View style={styles.message}>
           <Image source={require('../assets/high-arrow.png')}
           style={styles.arrow}/>
-          <Text style={styles.boldText}>Sold tea leaves 5 KG</Text>
-          <Text style={styles.date}>nov 01, 2.00 P.M</Text>
-          <Text style={styles.price}>+ 1500 LKR</Text>
+          <Text style={styles.boldText}>Sold tea leaves 10 KG</Text>
+          <Text style={styles.date2}>nov 12, 11.00 A.M</Text>
+          <Text style={styles.price2}>+ 3000 LKR</Text>
         </View>
         
       </View>
@@ -31,9 +31,9 @@ const ReportMessages = () => {
         <View style={styles.message}>
           <Image source={require('../assets/low-arrow.png')}
           style={styles.arrow}/>
-          <Text style={styles.boldText}>Sold tea leaves 5 KG</Text>
-          <Text style={styles.date}>nov 01, 2.00 P.M</Text>
-          <Text style={styles.lowPrice}>+ 1500 LKR</Text>
+          <Text style={styles.boldText}>Take tea leaves</Text>
+          <Text style={styles.date3}>nov 01, 2.00 P.M</Text>
+          <Text style={styles.lowPrice}>- 1500 LKR</Text>
         </View>
         
       </View>
@@ -90,9 +90,25 @@ const styles = StyleSheet.create({
     right:163,
     color:'grey'
   },
+  date2:{
+    top:29,
+    right:175,
+    color:'grey'
+  },
+  date3:{
+    top:29,
+    right:113,
+    color:'grey'
+  },
   price:{
     color:'green',
     right:105,
+    top:30,
+    fontSize:16,
+  },
+  price2:{
+    color:'green',
+    right:130,
     top:30,
     fontSize:16,
   },
@@ -108,7 +124,7 @@ const styles = StyleSheet.create({
   },
   lowPrice:{
     color:'red',
-    right:105,
+    right:60,
     top:30,
     fontSize:16,
   }

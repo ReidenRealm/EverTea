@@ -4,7 +4,9 @@ import { Text, View, StyleSheet,SafeAreaView, TouchableOpacity } from 'react-nat
 const IncomeExpenseTab = () => {
   const [selected, setSelected] = React.useState("income");
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,
+      {borderColor: selected === "income" ? "#008C5E" : "#FF3B30"}
+    ]}>
       <View style={styles.toggleContainer}>
         {/* Income Button */}
         <TouchableOpacity

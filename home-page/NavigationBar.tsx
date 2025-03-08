@@ -31,14 +31,17 @@ const NavigationBar = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#d6d3d0',
+    backgroundColor: '#fff',
     width:'100%',
     flexDirection: 'row',
     justifyContent:'space-between',
     alignItems:'center',
-    paddingVertical:23,
+    paddingVertical:18,
     borderTopWidth:1,
     borderTopColor: '#ddd',
+    borderTopLeftRadius:20,
+    borderTopRightRadius:20,
+    elevation:20,
   },
   navItem:{
     flex:1,
@@ -47,6 +50,7 @@ const styles = StyleSheet.create({
   icon:{
     width: 28,
     height:28,
+    tintColor:'#8A8A8A',
   }
 });
 

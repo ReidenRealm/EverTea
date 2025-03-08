@@ -18,7 +18,7 @@ export const lineChartData: LineChartData = {
     labels:['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'],
     datasets:[
      {
-         data:[28, 35, 60, 70, 30],
+         data:[18, 35, 60, 70, 30],
          color:()=> 'green',
          strokeWidth:10,
      

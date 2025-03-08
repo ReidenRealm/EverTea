@@ -7,13 +7,14 @@ export default function Index() {
     <View
       style={{
   
-        backgroundColor: '#e8e6e6',
+        backgroundColor: '#EEF6FD',
         margin:0, 
       }}
     >
       <Text>
-        <HomePage/>
-        {/* <ReportPage /> */}
+
+        {/* <HomePage/> */}
+        <ReportPage />
       </Text>
     </View>
   );

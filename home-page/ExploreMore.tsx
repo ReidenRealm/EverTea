@@ -42,15 +42,15 @@ const ExploreMore = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#76cbde',
-    marginTop:20,
+    marginTop:10,
     borderTopLeftRadius:30,
     borderTopRightRadius:30,
     flex:1,
-  },topic:{
-    fontWeight:'bold',
-    marginLeft:32,
+  },
+  topic:{
+    marginLeft:22,
     marginTop:20,
+    marginBottom:10,
   },
   arrow:{
     width:23,
@@ -58,22 +58,22 @@ const styles = StyleSheet.create({
     position:'relative',
   },
   icon:{
-    width:55,
-    height:65,
+    width:50,
+    height:50,
+    right:10,
   },
   grid:{
     flexDirection:'row',
     flexWrap: 'wrap',
     justifyContent:'space-between',
     marginTop:20,
-    marginLeft:15,
-    marginRight:15,
+    marginHorizontal:20,
   },
   box:{
-    backgroundColor: '#fff6ec',
+    backgroundColor: '#fff',
     width:'47%',
     borderRadius: 15,
-    padding: 5,
+    padding: 20,
     marginBottom: 15,
     elevation:5,
   },

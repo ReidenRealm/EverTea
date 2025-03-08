@@ -8,7 +8,7 @@ import {
   StatusBar,
   Image,
 } from "react-native";
-
+import { LinearGradient } from "expo-linear-gradient";
 const IncomeCard = () => {
   return(
     <SafeAreaView style= {styles.container}>
@@ -22,39 +22,37 @@ const IncomeCard = () => {
 
       {/* Total Income Card */}
       <View style={styles.incomeCard}>
-        <Text style={styles.cardTitle}>PLANTATION 01</Text>
-        <TouchableOpacity>
-          <Image
-            source={require('../assets/more-horizontal.png')}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
-        <Text style={styles.totalIncomeHeader}>Total Income</Text>
-        <Text style={styles.totalIncome}>130,000 LKR</Text>
+        
+          <Text style={styles.cardTitle}>PLANTATION 01</Text>
+            <TouchableOpacity>
+              <Image
+                source={require('../assets/more-horizontal.png')}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+            <Text style={styles.totalIncomeHeader}>Total Income</Text>
+            <Text style={styles.totalIncome}>130,000 LKR</Text>
 
-       <Text style={styles.rowContainer}>
-       <View style={styles.incomeBox}>
-          <Image
-            source={require('../assets/low-arrow.png')}
-            style={styles.lowArrowIcon}
-          />
-          <Text style={styles.incomeLabel}>INCOME</Text>
-          <Text style={styles.incomeText}>+150,000 LKR</Text>
-        </View>
+          <Text style={styles.rowContainer}>
+            <View style={styles.incomeBox}>
+              <Image
+                source={require('../assets/high-arrow.png')}
+                style={styles.lowArrowIcon}
+              />
+              <Text style={styles.incomeLabel}>INCOME</Text>
+              <Text style={styles.incomeText}>+150,000 LKR</Text>
+            </View>
 
-        <View style={styles.expenceBox}>
-          <Image
-            source={require('../assets/high-arrow.png')}
-            style={styles.lowArrowIcon}
-          />
-          <Text style={styles.expenceLabel}>EXPENCE</Text>
-          <Text style={styles.expenceText}>-20,000 LKR</Text>
-        </View>
-       </Text>
-
-
-
-
+            <View style={styles.expenceBox}>
+              <Image
+                source={require('../assets/low-arrow.png')}
+                style={styles.lowArrowIcon}
+              />
+              <Text style={styles.expenceLabel}>EXPENCE</Text>
+              <Text style={styles.expenceText}>-20,000 LKR</Text>
+            </View>
+          </Text>
+      
       </View>
 
 
@@ -67,32 +65,21 @@ const IncomeCard = () => {
 
 const styles = StyleSheet.create({
   container:{
-    backgroundColor: '#e8e6e6',
-  },
-  header: {
-    padding: 15,
-    alignItems: 'flex-end',
-  },
-  topic: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    position: 'relative',
-    left: 90,
-    bottom:50,
+
   },
   subTopic: {
-    fontWeight: 'bold',
+
     fontSize: 15,
-    marginLeft: 32,
+    marginLeft: 25,
   },
   arrow: {
     height: 10,
     width: 20,
   },
   incomeCard: {
-    backgroundColor: '#FFBC6C',
+    backgroundColor:'#1EB781',
     margin: 15,
-    borderRadius: 15,
+    borderRadius: 25,
     padding: 15,
     elevation: 10,
   },
@@ -118,17 +105,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
   },
-  profile: {
-    height:45,
-    width:45,
-    borderRadius:20,
-    elevation: 10,
-  },
   totalIncomeHeader: {
     fontSize: 19,
     position: 'relative',
     color:'#f2dbbf',
     top: 10,
+    fontWeight:'bold',
   },
 
   rowContainer: {
@@ -137,11 +119,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 2,
     right:0,
-    marginVertical: 10,
     flexWrap: 'wrap',
   },
   incomeBox:{
-    backgroundColor: '#fff6ec',
+    backgroundColor: '#EEF7FE',
     justifyContent:'center',
     borderRadius:20,
     margin:10,
@@ -168,7 +149,7 @@ const styles = StyleSheet.create({
     bottom:25,
   },
   expenceBox: {
-    backgroundColor: '#fff6ec',
+    backgroundColor: '#FBF5DF',
     justifyContent: 'center',
     width: 160,
     borderRadius:20,
