@@ -27,6 +27,8 @@ public class WeatherController {
         // weatherService class
         service.retrieveLocation(receiver);
 
+        service.getLocationName(receiver);
+
         firebaseMessagingService.getTokenFromController(receiver);
 
 

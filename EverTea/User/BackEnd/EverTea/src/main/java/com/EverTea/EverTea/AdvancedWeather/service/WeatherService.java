@@ -4,6 +4,7 @@ import com.EverTea.EverTea.AdvancedWeather.DTO.LocationAndTokenReceiver;
 import com.EverTea.EverTea.AdvancedWeather.DTO.WeatherData;
 import com.EverTea.EverTea.AdvancedWeather.repo.WeatherRepository;
 import com.EverTea.EverTea.AdvancedWeather.webSocket.WeatherDataWebSocketHandler;
+import com.EverTea.EverTea.EverTeaBackEnd;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -14,11 +15,14 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class WeatherService {
 
     //Declare city variable
+    String city;
     double latitude = 0;
     double longitude = 0;
 
@@ -33,19 +37,40 @@ public class WeatherService {
     @Autowired
     private WeatherDataWebSocketHandler webSocketHandler;
 
-    public void retrieveLocation(LocationAndTokenReceiver receiver){
+    @Autowired
+    private EverTeaBackEnd everTeaBackEnd;
 
+    public void retrieveLocation(LocationAndTokenReceiver receiver){
         latitude = receiver.getLatitude();
         longitude = receiver.getLongitude();
         token = receiver.getFcmToken();
 
         System.out.println("lat: "+ latitude);
         System.out.println("lon: "+ longitude);
-
     }
 
+    public String getLocationName(LocationAndTokenReceiver receiver){
+        String APIKey = "AIzaSyDjb3uGFLqqh-fFtVbeP7cVnQ9ktpg7yNU";
+        String url =    "https://maps.googleapis.com/maps/api/geocode/json?latlng="
+                +receiver.getLatitude()
+                + ","
+                +receiver.getLongitude()
+                +"&key="
+                +APIKey;
 
-    @Scheduled(fixedRate = 1000, initialDelay = 6000)
+        Map response = everTeaBackEnd.restTemplate().getForObject(url, Map.class);
+        if(response != null && response.containsKey("results")){
+            List<Map> results = (List<Map>) response.get("results");
+            if(!results.isEmpty()){
+                city = results.get(0).get("formatted_address").toString();
+                System.out.println("Reversing coordinates: "+ city);
+                return city;
+            }
+        }
+        return "Location not found";
+    }
+
+    @Scheduled(fixedRate = 10000, initialDelay = 6000)
     private void displayWeatherData(){
 
         // prevent the program execute until get the API response

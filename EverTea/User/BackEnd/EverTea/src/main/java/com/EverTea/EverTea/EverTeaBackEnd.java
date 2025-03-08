@@ -11,8 +11,11 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
+@EnableScheduling
 public class EverTeaBackEnd {
 
 	public static void main(String[] args) {
@@ -31,6 +34,12 @@ public class EverTeaBackEnd {
 		FirebaseApp firebaseApp = FirebaseApp.initializeApp(firebaseOptions, "my-app");
 
 		return FirebaseMessaging.getInstance(firebaseApp);
+	}
+
+	@Bean
+	public RestTemplate restTemplate(){
+		System.out.println("rest template called");
+		return new RestTemplate();
 	}
 
 }
