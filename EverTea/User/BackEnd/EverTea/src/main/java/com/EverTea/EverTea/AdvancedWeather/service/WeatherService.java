@@ -129,8 +129,8 @@ public class WeatherService {
             JSONArray windDirectionArray = (JSONArray) dailyWeatherJson.get("wind_direction_10m_dominant");
 
 
-            if(!weatherRepository.doesCityTableExist(String.valueOf(latitude), String.valueOf(longitude))){
-                weatherRepository.createCityTableIfTableNotExist(String.valueOf(latitude), String.valueOf(longitude));
+            if(!weatherRepository.doesCityTableExist(city)){
+                weatherRepository.createCityTableIfTableNotExist(city);
             }else{
                 System.out.println(latitude+"_"+longitude+ "_weather_table is already created");
             }
@@ -268,8 +268,7 @@ public class WeatherService {
                 }
 
 
-                weatherRepository.insertWeatherData(String.valueOf(latitude),
-                        String.valueOf(longitude),
+                weatherRepository.insertWeatherData(city,
                         weatherData.getDateTime(),
                         weatherData.getCloudCover(),
                         weatherData.getCurrentTemp(),
