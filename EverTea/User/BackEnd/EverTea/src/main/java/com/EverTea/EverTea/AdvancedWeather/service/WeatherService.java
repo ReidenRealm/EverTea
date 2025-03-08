@@ -22,6 +22,8 @@ public class WeatherService {
     double latitude = 0;
     double longitude = 0;
 
+    String token;
+
     @Autowired
     private WeatherRepository weatherRepository;
 
@@ -35,6 +37,7 @@ public class WeatherService {
 
         latitude = receiver.getLatitude();
         longitude = receiver.getLongitude();
+        token = receiver.getFcmToken();
 
         System.out.println("lat: "+ latitude);
         System.out.println("lon: "+ longitude);
@@ -42,12 +45,17 @@ public class WeatherService {
     }
 
 
-    @Scheduled(fixedRate = 10000, initialDelay = 6000)
+    @Scheduled(fixedRate = 1000, initialDelay = 6000)
     private void displayWeatherData(){
 
         // prevent the program execute until get the API response
         if(latitude == 0 && longitude == 0){
             System.out.println("Latitude and Longitude is null, waiting for API response...");
+            return;
+        }
+
+        if(token == null){
+            System.out.println("Token is not fetched, waiting for fcm token...");
             return;
         }
 
