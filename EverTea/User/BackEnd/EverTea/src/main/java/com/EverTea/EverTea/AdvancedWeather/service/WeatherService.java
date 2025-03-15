@@ -19,6 +19,7 @@ import java.net.HttpURLConnection;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -146,9 +147,9 @@ public class WeatherService {
             }
 
             // store hour in a array easy to read human
-            String[] dateArray = {"12:00 AM","01:00 AM","02:00 AM","03:00 AM","04:00 AM","05:00 AM","06:00 AM","07:00 AM","08:00 AM","09:00 AM","10:00 AM","11:00 AM","12:00 PM","1:00 PM","2:00 PM","3:00 PM","4:00 PM","5:00 PM","6:00 PM","7:00 PM","8:00 PM","9:00 PM","10:00 PM","11:00 PM"};
+            String[] dateArray = {"12:00 AM","01:00 AM","02:00 AM","03:00 AM","04:00 AM","05:00 AM","06:00 AM","07:00 AM","08:00 AM","09:00 AM","10:00 AM","11:00 AM","12:00 PM","01:00 PM","02:00 PM","03:00 PM","04:00 PM","05:00 PM","06:00 PM","07:00 PM","08:00 PM","09:00 PM","10:00 PM","11:00 PM"};
 
-            for(int i=6; i < 21; i++){
+            for(int i=6; i < 22; i++){
 
                 String date = dateArray[i];
                 weatherData.setDateTime(date);
@@ -281,7 +282,7 @@ public class WeatherService {
                         break;
                 }
 
-                double windSpeed = ((Number) windSpeedArray.get(i)).doubleValue();
+                double windSpeed = Math.round(((Number) windSpeedArray.get(i)).doubleValue());
                 weatherData.setWindSpeed(windSpeed);
                 System.out.println("Wind Speed: "+ windSpeed);
 
@@ -348,7 +349,7 @@ public class WeatherService {
                     .replaceAll("^_|_$","")
                     + "_plantation";
             System.out.println("Table name in service: "+tableName);
-            System.out.println("All data from: "+dynamicTableService.getAllDataFromTable(tableName));
+            dynamicTableService.getAllDataFromTable(tableName);
 
         }catch(IOException e){
             e.printStackTrace();
