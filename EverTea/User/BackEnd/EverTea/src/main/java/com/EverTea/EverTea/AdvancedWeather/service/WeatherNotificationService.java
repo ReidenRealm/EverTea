@@ -217,19 +217,14 @@ public class WeatherNotificationService {
                 //System.out.println(messageQueue[i][0].equals("06 AM"));
                 if (    messageQueue[i][0].equals("06 AM") ||
                         messageQueue[i][0].equals("07 AM") ||
-                        messageQueue[i][0].equals("08 AM") ||
                         messageQueueRP[i][0].equals("06 AM") ||
                         messageQueueRP[i][0].equals("07 AM") ||
-                        messageQueueRP[i][0].equals("08 AM") ||
                         messageQueueRH[i][0].equals("06 AM") ||
                         messageQueueRH[i][0].equals("07 AM") ||
-                        messageQueueRH[i][0].equals("08 AM") ||
                         messageQueueWS[i][0].equals("06 AM") ||
                         messageQueueWS[i][0].equals("07 AM") ||
-                        messageQueueWS[i][0].equals("08 AM") ||
                         messageQueueST[i][0].equals("06 AM") ||
-                        messageQueueST[i][0].equals("07 AM") ||
-                        messageQueueST[i][0].equals("08 AM")
+                        messageQueueST[i][0].equals("07 AM")
 
                 ) {
 
@@ -252,27 +247,22 @@ public class WeatherNotificationService {
                 }
             }
 
-        }else if(formattedTime.equals("06 AM") || formattedTime.equals("07 AM") || formattedTime.equals("08 AM")){
+        }else if(formattedTime.equals("06 AM") || formattedTime.equals("07 AM")){
 
             HashSet<String> set = new HashSet<>();
 
             for(int i=0; i<messageQueue.length; i++){
 
-                if( messageQueue[i][0].equals("09 AM") ||
-                    messageQueue[i][0].equals("10 AM") ||
-                    messageQueue[i][0].equals("11 AM") ||
+                if( messageQueue[i][0].equals("08 AM") ||
+                    messageQueue[i][0].equals("09 AM") ||
+                    messageQueueRH[i][0].equals("08 AM") ||
                     messageQueueRH[i][0].equals("09 AM") ||
-                    messageQueueRH[i][0].equals("10 AM") ||
-                    messageQueueRH[i][0].equals("11 AM") ||
+                    messageQueueRP[i][0].equals("08 AM") ||
                     messageQueueRP[i][0].equals("09 AM") ||
-                    messageQueueRP[i][0].equals("10 AM") ||
-                    messageQueueRP[i][0].equals("11 AM") ||
+                    messageQueueWS[i][0].equals("08 AM") ||
                     messageQueueWS[i][0].equals("09 AM") ||
-                    messageQueueWS[i][0].equals("10 AM") ||
-                    messageQueueWS[i][0].equals("11 AM") ||
-                    messageQueueST[i][0].equals("09 AM") ||
-                    messageQueueST[i][0].equals("10 AM") ||
-                    messageQueueST[i][0].equals("11 AM")
+                    messageQueueST[i][0].equals("08 AM") ||
+                    messageQueueST[i][0].equals("09 AM")
                 ){
 
                     set.add(messageQueue[i][1]);
@@ -292,27 +282,56 @@ public class WeatherNotificationService {
                     e.printStackTrace();
                 }
             }
-        }else if(formattedTime.equals("09 AM") || formattedTime.equals("10 AM") || formattedTime.equals("11 AM")){
+        }else if(formattedTime.equals("08 AM") || formattedTime.equals("09 AM")){
 
+            HashSet<String> set = new HashSet<>();
+
+            for(int i=0; i< messageQueue.length; i++){
+                if(
+                    messageQueue[i][0].equals("10 PM") ||
+                    messageQueue[i][0].equals("11 PM") ||
+                    messageQueueRH[i][0].equals("10 PM") ||
+                    messageQueueRH[i][0].equals("11 PM") ||
+                    messageQueueRP[i][0].equals("10 PM") ||
+                    messageQueueRP[i][0].equals("11 PM") ||
+                    messageQueueWS[i][0].equals("10 PM") ||
+                    messageQueueWS[i][0].equals("11 PM") ||
+                    messageQueueST[i][0].equals("10 PM") ||
+                    messageQueueST[i][0].equals("11 PM")
+                ){
+                    set.add(messageQueue[i][1]);
+                    set.add(messageQueueRP[i][1]);
+                    set.add(messageQueueRH[i][1]);
+                    set.add(messageQueueST[i][1]);
+                    set.add(messageQueueWS[i][1]);
+
+                }
+            }
+
+            for(String item: set){
+                System.out.println(item);
+                try{
+                    Thread.sleep(1000);
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+        }else if(formattedTime.equals("10 AM") || formattedTime.equals("11 AM")){
+            System.out.println("Time is :"+ formattedTime);
             HashSet<String> set = new HashSet<>();
 
             for(int i=0; i< messageQueue.length; i++){
                 if(
                     messageQueue[i][0].equals("12 PM") ||
                     messageQueue[i][0].equals("01 PM") ||
-                    messageQueue[i][0].equals("02 PM") ||
                     messageQueueRH[i][0].equals("12 PM") ||
                     messageQueueRH[i][0].equals("01 PM") ||
-                    messageQueueRH[i][0].equals("02 PM") ||
                     messageQueueRP[i][0].equals("12 PM") ||
                     messageQueueRP[i][0].equals("01 PM") ||
-                    messageQueueRP[i][0].equals("02 PM") ||
                     messageQueueWS[i][0].equals("12 PM") ||
                     messageQueueWS[i][0].equals("01 PM") ||
-                    messageQueueWS[i][0].equals("02 PM") ||
                     messageQueueST[i][0].equals("12 PM") ||
-                    messageQueueST[i][0].equals("01 PM") ||
-                    messageQueueST[i][0].equals("02 PM")
+                    messageQueueST[i][0].equals("01 PM")
                 ){
                     set.add(messageQueue[i][1]);
                     set.add(messageQueueRP[i][1]);
@@ -331,25 +350,54 @@ public class WeatherNotificationService {
                     e.printStackTrace();
                 }
             }
-        }else if(formattedTime.equals("12 PM") || formattedTime.equals("01 PM") || formattedTime.equals("02 PM")){
-            System.out.println("Time is :"+ formattedTime);
+        }else if(formattedTime.equals("12 PM") || formattedTime.equals("01 PM")){
             HashSet<String> set = new HashSet<>();
 
             for(int i=0; i< messageQueue.length; i++){
                 if(
+                    messageQueue[i][0].equals("02 PM") ||
                     messageQueue[i][0].equals("03 PM") ||
+                    messageQueueRH[i][0].equals("02 PM") ||
+                    messageQueueRH[i][0].equals("03 PM") ||
+                    messageQueueRP[i][0].equals("02 PM") ||
+                    messageQueueRP[i][0].equals("03 PM") ||
+                    messageQueueWS[i][0].equals("02 PM") ||
+                    messageQueueWS[i][0].equals("03 PM") ||
+                    messageQueueST[i][0].equals("02 PM") ||
+                    messageQueueST[i][0].equals("03 PM")
+                ){
+                    set.add(messageQueue[i][1]);
+                    set.add(messageQueueRP[i][1]);
+                    set.add(messageQueueRH[i][1]);
+                    set.add(messageQueueST[i][1]);
+                    set.add(messageQueueWS[i][1]);
+
+                }
+            }
+
+            for(String item: set){
+                System.out.println(item);
+                try{
+                    Thread.sleep(1000);
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+
+
+        }else if(formattedTime.equals("02 PM") || formattedTime.equals("03 PM")){
+            HashSet<String> set = new HashSet<>();
+
+            for(int i=0; i< messageQueue.length; i++){
+                if(
                     messageQueue[i][0].equals("04 PM") ||
                     messageQueue[i][0].equals("05 PM") ||
-                    messageQueueRH[i][0].equals("03 PM") ||
                     messageQueueRH[i][0].equals("04 PM") ||
                     messageQueueRH[i][0].equals("05 PM") ||
-                    messageQueueRP[i][0].equals("03 PM") ||
                     messageQueueRP[i][0].equals("04 PM") ||
                     messageQueueRP[i][0].equals("05 PM") ||
-                    messageQueueWS[i][0].equals("03 PM") ||
                     messageQueueWS[i][0].equals("04 PM") ||
                     messageQueueWS[i][0].equals("05 PM") ||
-                    messageQueueST[i][0].equals("03 PM") ||
                     messageQueueST[i][0].equals("04 PM") ||
                     messageQueueST[i][0].equals("05 PM")
                 ){
@@ -358,7 +406,6 @@ public class WeatherNotificationService {
                     set.add(messageQueueRH[i][1]);
                     set.add(messageQueueST[i][1]);
                     set.add(messageQueueWS[i][1]);
-
                 }
             }
 
@@ -370,29 +417,53 @@ public class WeatherNotificationService {
                     e.printStackTrace();
                 }
             }
-        }else if(formattedTime.equals("03 PM") || formattedTime.equals("04 PM") || formattedTime.equals("05 PM")){
+
+        }else if(formattedTime.equals("04 PM") || formattedTime.equals("05 PM")){
             HashSet<String> set = new HashSet<>();
 
             for(int i=0; i< messageQueue.length; i++){
                 if(
                     messageQueue[i][0].equals("06 PM") ||
                     messageQueue[i][0].equals("07 PM") ||
-                    messageQueue[i][0].equals("08 PM") ||
-                    messageQueue[i][0].equals("09 PM") ||
                     messageQueueRH[i][0].equals("06 PM") ||
                     messageQueueRH[i][0].equals("07 PM") ||
-                    messageQueueRH[i][0].equals("08 PM") ||
-                    messageQueueRH[i][0].equals("09 PM") ||
                     messageQueueRP[i][0].equals("06 PM") ||
                     messageQueueRP[i][0].equals("07 PM") ||
-                    messageQueueRP[i][0].equals("08 PM") ||
-                    messageQueueRP[i][0].equals("09 PM") ||
                     messageQueueWS[i][0].equals("06 PM") ||
                     messageQueueWS[i][0].equals("07 PM") ||
+                    messageQueueST[i][0].equals("06 PM") ||
+                    messageQueueST[i][0].equals("07 PM")
+                ){
+                    set.add(messageQueue[i][1]);
+                    set.add(messageQueueRP[i][1]);
+                    set.add(messageQueueRH[i][1]);
+                    set.add(messageQueueST[i][1]);
+                    set.add(messageQueueWS[i][1]);
+                }
+            }
+
+            for(String item : set){
+                System.out.println(item);
+                try{
+                    Thread.sleep(1000);
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+
+        }else{
+            HashSet<String> set = new HashSet<>();
+
+            for(int i=0; i< messageQueue.length; i++){
+                if(
+                    messageQueue[i][0].equals("08 PM") ||
+                    messageQueue[i][0].equals("09 PM") ||
+                    messageQueueRH[i][0].equals("08 PM") ||
+                    messageQueueRH[i][0].equals("09 PM") ||
+                    messageQueueRP[i][0].equals("08 PM") ||
+                    messageQueueRP[i][0].equals("09 PM") ||
                     messageQueueWS[i][0].equals("08 PM") ||
                     messageQueueWS[i][0].equals("09 PM") ||
-                    messageQueueST[i][0].equals("06 PM") ||
-                    messageQueueST[i][0].equals("07 PM") ||
                     messageQueueST[i][0].equals("08 PM") ||
                     messageQueueST[i][0].equals("09 PM")
                 ){
@@ -401,11 +472,10 @@ public class WeatherNotificationService {
                     set.add(messageQueueRH[i][1]);
                     set.add(messageQueueST[i][1]);
                     set.add(messageQueueWS[i][1]);
-
                 }
             }
 
-            for(String item: set){
+            for(String item : set){
                 System.out.println(item);
                 try{
                     Thread.sleep(1000);
@@ -413,12 +483,7 @@ public class WeatherNotificationService {
                     e.printStackTrace();
                 }
             }
-
-
         }
-
-
-
 
 
     }
