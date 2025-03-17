@@ -1,5 +1,7 @@
 package com.EverTea.EverTea.AdvancedWeather.service;
 
+import com.EverTea.EverTea.AdvancedWeather.webSocket.WeatherDataWebSocketHandler;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,12 @@ public class DynamicTableService {
     @Autowired
     private WeatherNotificationService service;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private WeatherDataWebSocketHandler webSocketHandler;
+
 
     public DynamicTableService(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
@@ -30,47 +38,30 @@ public class DynamicTableService {
                 .map(row -> row.values().stream().toList())
                 .toList();
 
-//        List<List<Integer>> convertedData = weatherDataList.stream()
-//                        .map(row -> row.stream()
-//                                .map(this::convertToCorrectType)
-//                                .collect(Collectors.toList()))
-//                .collect(Collectors.toList());
-//
-//        service.getNotificationMessage(convertedData);
-//        System.out.println("Converted Data: "+convertedData);
 
         System.out.println("Weather Data in List: "+weatherDataList);
         service.getNotificationMessage(weatherDataList);
+        notifyWeatherDataWebSocket(weatherDataList);
 
         return rows.stream()
                 .map(row -> row.values().stream().toList())
                 .toList();
     }
 
-    public Integer convertToCorrectType(Object obj){
-        if(obj instanceof Number){
-            return ((Number) obj).intValue(); // works for Integer, Long, Double
-        }else if(obj instanceof String){
-            //System.out.println("Dynamic"+obj);
-//            String[] parts = ((String) obj).split("[: ]");
-//            String hour = parts[0];
-//            String period = parts[2];
-//            String str = hour + period;
 
-            String str = ((String) obj).split(":")[0];
+    public void notifyWeatherDataWebSocket(List<List<Object>> data){
+        try{
+            //convert list to JSON String
+            String dataJson = objectMapper.writeValueAsString(data);
 
-            if(str.matches("-?\\d+")){
-                String[] parts = ((String) obj).split("[: ]");
-                String hour = parts[0];
-                String period = parts[2];
-                String hourPeriod = hour + period;
-                System.out.println("Time: "+ hourPeriod);
-                return Integer.parseInt(hourPeriod);
-            }else{
-                return 0;
-            }
-        }else{
-            throw new IllegalArgumentException("Unexpected data type: "+obj.getClass());
+            String messageJson = String.format("{\"type\": \"weather_update\", \"data\": %s}",dataJson);
+
+            webSocketHandler.broadCast(messageJson);
+            System.out.println("WeatherData sent successfully");
+
+        }catch(Exception e){
+            System.out.println("Error while notify the web socket: "+ e.getMessage());
         }
     }
+
 }

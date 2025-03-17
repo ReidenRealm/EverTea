@@ -1,5 +1,6 @@
 package com.EverTea.EverTea.AdvancedWeather.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
@@ -10,6 +11,10 @@ import java.util.List;
 
 @Service
 public class WeatherNotificationService {
+
+
+    @Autowired
+    private FirebaseMessagingService firebaseMessagingService;
 
     public void getNotificationMessage(List<List<Object>> weatherDataList){
 
@@ -35,13 +40,13 @@ public class WeatherNotificationService {
             String time = weatherDataList.get(i).get(2).toString().substring(0,2) + weatherDataList.get(i).get(2).toString().substring(5);
 
             if(temp > 35){
-                message = "🔥 Extreme heat warning! Temperature will exceed 35°C at "+time+". Protect plants from heat stress.";
+                message = "🔥 අධික තාප අනතුරු ඇඟවීම! "+time+".  වෙලාවට උෂ්ණත්වය 35°C ඉක්මවනු ඇත. ගස්පලාන් අධික තාපයෙන් රැකගන්න..";
                 messageQueue[i][0] = time;
                 messageQueue[i][1] = message;
                 //System.out.println(message);
             }
             if(temp >= 30 && temp <= 35){
-                message = "☀️ High temperature alert! Temperature between 30-35°C at "+time+". Consider shade and irrigation.";
+                message = "☀️ ඉහළ උෂ්ණත්වය පිළිබඳ අවවාදය! උෂ්ණත්වය °C 30-35ත් අතරේ "+time+". වේලාවේදී. සෙරෙන ස්ථානයකට යාම සහ ජලසම්පාදනය පිළිබඳව සැලකිල්ලට ගන්න";
                 messageQueue[i][0] = time;
                 messageQueue[i][1] = message;
                 //System.out.println(message);
@@ -126,7 +131,7 @@ public class WeatherNotificationService {
                 //System.out.println(message);
             }
             if(rain < 5 && precipitation > 0){
-                message = "🌧️ Drizzle expected at "+time+". Slight moisture increase.";
+                message = "🌧️ "+time+" වෙලාවට සුළු වැසි පැතිරෙනු ඇත. තෙතමන තරමක් වැඩි විය හැක.";
                 messageQueueRP[i][0] = time;
                 messageQueueRP[i][1] = message;
                 //System.out.println(message);
@@ -240,6 +245,7 @@ public class WeatherNotificationService {
 
             for(String item : set){
                 System.out.println(item);
+                firebaseMessagingService.sendNotificationByToken(item);
                 try{
                     Thread.sleep(1000);
                 }catch(InterruptedException e){
@@ -276,6 +282,7 @@ public class WeatherNotificationService {
 
             for(String item: set){
                 System.out.println(item);
+                firebaseMessagingService.sendNotificationByToken(item);
                 try{
                     Thread.sleep(1000);
                 }catch(InterruptedException e){
@@ -310,6 +317,7 @@ public class WeatherNotificationService {
 
             for(String item: set){
                 System.out.println(item);
+                firebaseMessagingService.sendNotificationByToken(item);
                 try{
                     Thread.sleep(1000);
                 }catch(InterruptedException e){
@@ -344,6 +352,7 @@ public class WeatherNotificationService {
 
             for(String item: set){
                 System.out.println(item);
+                firebaseMessagingService.sendNotificationByToken(item);
                 try{
                     Thread.sleep(1000);
                 }catch(InterruptedException e){
@@ -411,6 +420,7 @@ public class WeatherNotificationService {
 
             for(String item: set){
                 System.out.println(item);
+                firebaseMessagingService.sendNotificationByToken(item);
                 try{
                     Thread.sleep(1000);
                 }catch(InterruptedException e){
@@ -451,7 +461,8 @@ public class WeatherNotificationService {
                 }
             }
 
-        }else{
+        }else if(formattedTime.equals("06 PM") || formattedTime.equals("07 PM")){
+            System.out.println("Time: "+ formattedTime);
             HashSet<String> set = new HashSet<>();
 
             for(int i=0; i< messageQueue.length; i++){
@@ -477,12 +488,17 @@ public class WeatherNotificationService {
 
             for(String item : set){
                 System.out.println(item);
+                firebaseMessagingService.sendNotificationByToken(item);
                 try{
                     Thread.sleep(1000);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }
             }
+        }else{
+            String notificationMessage = "Notification service temporary stopped until morning 4 AM\n Stay Tuned!";
+            System.out.println(notificationMessage);
+            firebaseMessagingService.sendNotificationByToken(notificationMessage);
         }
 
 

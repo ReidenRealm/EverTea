@@ -78,7 +78,7 @@ public class WeatherService {
         return "Location not found";
     }
 
-    @Scheduled(fixedRate = 10000, initialDelay = 6000)
+    @Scheduled(fixedRate = 20000, initialDelay = 6000)
     private void displayWeatherData(){
 
         System.out.println(setDateTime()); // call the method
@@ -366,30 +366,30 @@ public class WeatherService {
 
     }
 
-    private void notifyWeatherDataWebSocket(String data, String type){
-        try{
-            String message = data
-                    .replace("\\", "\\\\")  // Escape backslashes
-                    .replace("\"", "\\\"")  // Escape double quotes
-                    .replace("\n", "\\n")   // Escape newlines
-                    .replace("\r", "\\r")   // Escape carriage returns
-                    .replace("\t", "\\t");  // Escape tabs
-
-            String dataJson = String.format(
-                    "{\"type\": \"%s\", \"message\": \"%s\"}",
-                    type,
-                    message
-            );
-
-            webSocketHandler.broadCast(dataJson);
-            System.out.println("Weather data send");
-
-        }catch(Exception e){
-            System.out.println("Error while notifying log websocket: "+ e.getMessage());
-        }
-
-    }
-
+//    private void notifyWeatherDataWebSocket(String data, String type){
+//        try{
+//            String message = data
+//                    .replace("\\", "\\\\")  // Escape backslashes
+//                    .replace("\"", "\\\"")  // Escape double quotes
+//                    .replace("\n", "\\n")   // Escape newlines
+//                    .replace("\r", "\\r")   // Escape carriage returns
+//                    .replace("\t", "\\t");  // Escape tabs
+//
+//            String dataJson = String.format(
+//                    "{\"type\": \"%s\", \"message\": \"%s\"}",
+//                    type,
+//                    message
+//            );
+//
+//            webSocketHandler.broadCast(dataJson);
+//            System.out.println("Weather data send");
+//
+//        }catch(Exception e){
+//            System.out.println("Error while notifying log websocket: "+ e.getMessage());
+//        }
+//
+//    }
+//
 
 
 }
