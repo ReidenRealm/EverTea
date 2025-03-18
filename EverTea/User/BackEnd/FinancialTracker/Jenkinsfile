@@ -19,7 +19,7 @@ pipeline{
                 // Create the jar file
                 sh 'cd EverTea/User/Backend/FinancialTracker && ls -la && mvn clean install'
                 // Copy File to AWS root object, artifact to be deployed to AWS Beanstalk
-                sh 'mv EverTea/User/Backend/FinancialTracker/target/EverTea.jar app.jar'
+                sh 'cp EverTea/User/Backend/FinancialTracker/target/EverTea.jar app.jar'
             }
         }
         stage("Build docker image"){
