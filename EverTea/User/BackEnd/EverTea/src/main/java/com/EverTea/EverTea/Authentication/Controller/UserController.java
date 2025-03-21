@@ -1,6 +1,7 @@
 package com.EverTea.EverTea.Authentication.Controller;
 
 import com.EverTea.EverTea.Authentication.model.User;
+import com.EverTea.EverTea.Authentication.model.UserPricipal;
 import com.EverTea.EverTea.Authentication.services.JwtService;
 import com.EverTea.EverTea.Authentication.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+
+
+//The UserPrincipal class is a custom implementation of the UserDetails interface in Spring Security.
+// It represents the authenticated user, containing information about the user that Spring Security can use for authentication and authorization,
+// such as the user's roles, password, and other details.
 
 @RestController
 public class UserController {
@@ -96,8 +103,12 @@ public class UserController {
 
     @PutMapping("/user/update")
     public ResponseEntity<String> updateUser(@RequestBody User user, Authentication authentication) {
-        String currentUser = authentication.getName(); // Get the current logged-in user
-        if (!user.getUserName().equals(currentUser)) {
+
+        //The authentication object holds the details of the currently authenticated user.
+        //getPrincipal() returns the principal, which represents the authenticated user.
+        // In Spring Security, the principal can be the username, email, or any object representing the authenticated user (usually a UserDetails implementation, such as UserPrincipal).
+        String currentUser = ((UserPricipal) authentication.getPrincipal()).getEmail(); // Get the current logged-in user
+        if (!user.getEmail().equals(currentUser)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body("You cannot update another user's data.");
         }

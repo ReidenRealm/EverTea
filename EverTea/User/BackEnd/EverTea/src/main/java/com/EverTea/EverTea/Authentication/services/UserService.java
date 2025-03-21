@@ -29,7 +29,7 @@ public class UserService {
         User existingUser = userRepo.findByEmail(user.getEmail());
         if (existingUser != null) {
             existingUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword())); // Encrypt password
-            existingUser.setUserName(user.getEmail());
+            existingUser.setEmail(user.getEmail());
             userRepo.save(existingUser);
         } else {
             throw new RuntimeException("User not found");
