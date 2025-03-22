@@ -3,6 +3,7 @@ package com.EverTea.EverTea.Authentication.config;
 import com.EverTea.EverTea.Authentication.services.JwtService;
 import com.EverTea.EverTea.Authentication.services.MyUserDetailService;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -16,11 +17,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+//SLF4J (via LoggerFactory) for logging the errors instead of printing them to the console.
+// This provides a more secure and controlled way of tracking errors without exposing internal details to the user.
 
 import java.io.IOException;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
+
+    private static final Logger logger = LoggerFactory.getLogger(JwtFilter.class);
 
     @Autowired
     JwtService jwtService;
@@ -65,14 +72,22 @@ public class JwtFilter extends OncePerRequestFilter {
             }
             catch (SignatureException e) {
                 // Handle invalid signature
+                logger.error("JWT Signature mismatch: Token is invalid", e);
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT signature");
                 return;
             } catch (ExpiredJwtException e) {
                 // Handle expired token
+                logger.error("JWT Token has expired", e);
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token has expired");
                 return;
-            } catch (Exception e) {
+            } catch (MalformedJwtException e) {
+                logger.error("Malformed JWT token", e);
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Malformed JWT token");
+                return;
+            }
+            catch (Exception e) {
                 // Handle other exceptions
+                logger.error("Unexpected error occurred during token validation", e);
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected error during token validation");
                 return;
             }
