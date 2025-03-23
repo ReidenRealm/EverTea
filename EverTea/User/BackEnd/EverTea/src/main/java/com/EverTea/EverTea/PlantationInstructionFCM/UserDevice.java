@@ -4,6 +4,8 @@ import com.EverTea.EverTea.Authentication.model.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 public class UserDevice {
@@ -22,10 +24,7 @@ public class UserDevice {
     private String deviceType;  // "Mobile", "Tablet", etc.
 
     @Column(name = "created_at")
-    private String createdAt;  // Timestamp of when the device was registered
-
-    @Column
-    private String email;
+    private LocalDateTime createdAt;  // Change to LocalDateTime
 
 
     public Long getUserDeviceId() {
@@ -60,11 +59,11 @@ public class UserDevice {
         this.deviceType = deviceType;
     }
 
-    public String getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }

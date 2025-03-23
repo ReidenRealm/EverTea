@@ -2,6 +2,7 @@ package com.EverTea.EverTea.Authentication.Controller;
 
 import com.EverTea.EverTea.Authentication.model.User;
 import com.EverTea.EverTea.Authentication.model.UserPricipal;
+import com.EverTea.EverTea.Authentication.services.DeviceService;
 import com.EverTea.EverTea.Authentication.services.JwtService;
 import com.EverTea.EverTea.Authentication.services.UserService;
 import com.EverTea.EverTea.PlantationInstructionFCM.UserDevice;
@@ -35,6 +36,9 @@ public class UserController {
 
     @Autowired
     private JwtService jwtService;
+
+    @Autowired
+    private DeviceService deviceService;
 
     @PostMapping("/user/register")
     public User register(@RequestBody User user){
@@ -119,9 +123,31 @@ public class UserController {
 
     // Register a device for the user
     @PostMapping("/device/register")
-    public ResponseEntity<UserDevice> registerDevice(@RequestParam String email, @RequestParam String fcmToken, @RequestParam String deviceType) {
-        UserDevice registeredDevice = userService.registerDevice(email, fcmToken, deviceType);
-        return ResponseEntity.ok(registeredDevice);
+    public ResponseEntity<UserDevice> registerDevice(@RequestBody RegisterDeviceRequest request) {
+        // Fetch the user by email
+        User user = userService.findByEmail(request.getEmail());
+        if (user == null) {
+            return ResponseEntity.status(404).body(null); // User not found
+        }
+
+        // Register the device for the user
+        UserDevice userDevice = deviceService.registerDevice(user, request.getFcmToken(), request.getDeviceType());
+
+        return ResponseEntity.ok(userDevice);  // Return the saved device
+    }
+
+    public static class RegisterDeviceRequest {
+        private String email;
+        private String fcmToken;
+        private String deviceType;
+
+        // Getters and setters
+        public String getEmail() { return email; }
+        public void setEmail(String email) { this.email = email; }
+        public String getFcmToken() { return fcmToken; }
+        public void setFcmToken(String fcmToken) { this.fcmToken = fcmToken; }
+        public String getDeviceType() { return deviceType; }
+        public void setDeviceType(String deviceType) { this.deviceType = deviceType; }
     }
 
     // Get all devices registered to a user

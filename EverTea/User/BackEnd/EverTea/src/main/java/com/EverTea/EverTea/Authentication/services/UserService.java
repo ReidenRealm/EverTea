@@ -32,29 +32,6 @@ public class UserService {
 
     }
 
-    // Register a device for a user
-    public UserDevice registerDevice(String email, String fcmToken, String deviceType) {
-        User user = userFCMRepo.findByEmail(email);  // Find user by email
-        if (user != null) {
-            // Check if the device already exists
-            UserDevice existingDevice = userDeviceRepository.findByFcmToken(fcmToken);
-            if (existingDevice != null) {
-                // If device exists, update it (optional)
-                existingDevice.setDeviceType(deviceType);
-                existingDevice.setCreatedAt(LocalDateTime.now().toString());
-                return userDeviceRepository.save(existingDevice);
-            }
-            // Otherwise, create a new device entry
-            UserDevice userDevice = new UserDevice();
-            userDevice.setUser(user);
-            userDevice.setFcmToken(fcmToken);
-            userDevice.setDeviceType(deviceType);
-            userDevice.setCreatedAt(LocalDateTime.now().toString());
-            return userDeviceRepository.save(userDevice);
-        } else {
-            throw new RuntimeException("User not found");
-        }
-    }
 
     // Delete a device
     public void deleteDevice(String fcmToken) {
