@@ -1,16 +1,15 @@
-package com.EverTea.EverTea;
+package com.EverTea.EverTea.PlantationInstructionFCM;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
-import com.EverTea.EverTea.FireBaseConfig;  // Your Firebase config class
+import com.EverTea.EverTea.Config.FireBaseConfig;  // Your Firebase config class
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 

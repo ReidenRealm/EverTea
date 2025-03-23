@@ -1,4 +1,4 @@
-package com.EverTea.EverTea;
+package com.EverTea.EverTea.Config;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
@@ -36,7 +36,7 @@ public class FireBaseConfig {
         System.out.println("Initializing Firebase Messaging for Plantation Journey Instructions");
 
         GoogleCredentials googleCredentialsPlantation = GoogleCredentials
-                .fromStream(new ClassPathResource("plantation-journey-instruction-firebase-adminsdk-fbsvc-efffabe473.json").getInputStream());
+                .fromStream(new ClassPathResource("plantation-journey-instruction-firebase-adminsdk-fbsvc-a5e582e81b.json").getInputStream());
 
         FirebaseOptions firebaseOptionsPlantation = FirebaseOptions.builder()
                 .setCredentials(googleCredentialsPlantation)

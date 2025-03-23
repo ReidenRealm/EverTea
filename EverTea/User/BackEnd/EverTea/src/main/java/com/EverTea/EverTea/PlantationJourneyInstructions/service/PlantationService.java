@@ -1,17 +1,18 @@
 package com.EverTea.EverTea.PlantationJourneyInstructions.service;
 
+import com.EverTea.EverTea.Authentication.model.User;
+import com.EverTea.EverTea.PlantationInstructionFCM.FirebaseInstructionService;
+import com.EverTea.EverTea.PlantationInstructionFCM.UserDevice;
+import com.EverTea.EverTea.PlantationInstructionFCM.repo.UserDeviceRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.EverTea.EverTea.PlantationJourneyInstructions.model.Instruction;
 import com.EverTea.EverTea.PlantationJourneyInstructions.model.InstructionExecution;
 import com.EverTea.EverTea.PlantationJourneyInstructions.model.Plantation;
-import com.EverTea.EverTea.PlantationJourneyInstructions.model.TeaType;
 import com.EverTea.EverTea.PlantationJourneyInstructions.repo.InstructionExecutionRepository;
 import com.EverTea.EverTea.PlantationJourneyInstructions.repo.InstructionRepository;
 import com.EverTea.EverTea.PlantationJourneyInstructions.repo.TeaTypeRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.hibernate.query.sql.internal.ParameterRecognizerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,8 @@ import com.EverTea.EverTea.PlantationJourneyInstructions.repo.PlantationReposito
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -41,6 +42,10 @@ public class PlantationService {
     @Autowired
     private ObjectMapper objectMapper;  //ObjectMapper is a Jackson library class used to convert JSON to Java objects
 
+    @Autowired
+    private FirebaseInstructionService firebaseInstructionService;
+    @Autowired
+    private UserDeviceRepository userDeviceRepository;
 
 //    public void checkForWatering() {
 //        List<Plantation> plantationList = plantationRepository.findAll();
@@ -58,10 +63,11 @@ public class PlantationService {
     // Retrieving plantation details from the database to determine which instructions should be executed
     public void scanPlantationsForInstructing(){
         List<Plantation> plantationList = plantationRepository.findAll(); //get all the plantations from plantation table and store a List.
+        System.out.println(plantationList);
 
         for(Plantation plantation : plantationList){
 
-//            System.out.println(plantation.getPlantationName());
+            System.out.println(plantation.getPlantationName());
 
             LocalDateTime startTime = plantation.getPlantationStartDateTime();  //get and initialize plantation start date and time.
             LocalDateTime currentTime = LocalDateTime.now();
@@ -69,19 +75,25 @@ public class PlantationService {
 //            System.out.println("The time between starting data and present  : "+duration.toDays());
             long ageofPlantation = duration.toDays();
 
+            // Check if the plantation's trigger day has arrived
+            // Assuming userToken is fetched from the database or user session
+
+
 
             List<Instruction>InstructionList = instructionRepository.findByTeaType_TeaTypeId(plantation.getTeaType().getTeaTypeId());
 
             for(Instruction instructionDay : InstructionList){
-//                System.out.println("Instruction ID : "+instructionDay.getInstructionId()+ " Checking........");
+                System.out.println("Instruction ID : "+instructionDay.getInstructionId()+ " Checking........");
 
                 if(ageofPlantation>=instructionDay.getStartDay() && ageofPlantation <= instructionDay.getEndDay()){
-//                    System.out.println("Instruction ID : "+instructionDay.getInstructionId()+ " still valid . Instruction not end.");
-                       if(!isExecutedBefore(plantation.getPlantationId(), instructionDay.getInstructionId(),instructionDay.getRecurringFrequencyWeek(), currentTime)){
+                    System.out.println("Instruction ID : "+instructionDay.getInstructionId()+ " still valid . Instruction not end.");
+                    if(!isExecutedBefore(plantation.getPlantationId(), instructionDay.getInstructionId(),instructionDay.getRecurringFrequencyWeek(), currentTime)){
 
-                           executeInstruction(plantation.getPlantationName(), instructionDay.getAction(), instructionDay.getDetails());
-                           markInstruction(instructionDay.getInstructionId(), plantation.getPlantationId(), LocalDateTime.now());
-                       }
+                        List<String> userTokens = getUserTokenForPlantation(plantation); // Get all FCM tokens associated with the user
+
+                        executeInstruction(plantation,plantation.getPlantationName(), instructionDay.getAction(), instructionDay.getDetails(),userTokens);
+                        markInstruction(instructionDay.getInstructionId(), plantation.getPlantationId(), LocalDateTime.now());
+                    }
                 }
                 else {
 //                    System.out.println("Instruction ID : "+instructionDay.getInstructionId()+ " not valid. ");
@@ -134,11 +146,19 @@ public class PlantationService {
         instructionExecutionRepository.save(instructionExecution);
     }
 
-    private void executeInstruction(String plantationName, String action, String details) {
+    private void executeInstruction(Plantation plantation,String plantationName, String action, String details, List<String> userTokens) {
         System.out.println("--------------Instruction Execution---------------");
         System.out.println("Plantation Name : "+plantationName);
         System.out.println("Action : "+ action);
         System.out.println("Details : "+details);
+
+
+
+        // Loop through each token and send the notification
+        for (String token : userTokens) {
+            String response = firebaseInstructionService.sendInstructionNotification(token, plantationName, action, details);
+            System.out.println("Response: " + response);
+        }
     }
 
 
@@ -178,9 +198,30 @@ public class PlantationService {
         }
     }
 
+    private List<String> getUserTokenForPlantation(Plantation plantation) {
+        // Fetch the user associated with the plantation
+        User user = plantation.getUserId();  // Adjust according to your system's design
+
+        // Fetch the devices associated with the user (Assuming UserDevice has a relationship with User)
+        List<UserDevice> userDevices = userDeviceRepository.findByUser(user);  // Ensure a method exists to get devices by user
+
+        List<String> tokens = new ArrayList<>();
+        if (userDevices != null && !userDevices.isEmpty()) {
+            for (UserDevice userDevice : userDevices) {
+                tokens.add(userDevice.getFcmToken()); // Add each device's FCM token to the list
+            }
+        } else {
+            throw new RuntimeException("No devices found for user: " + user.getEmail());
+        }
+        return tokens;
+    }
+
+
+
     @Scheduled(fixedRate = 6000)
     public void scanPlantations() throws JsonProcessingException{
         scanPlantationsForInstructing();
+        System.out.println("scan plantation running ==========================");
     }
 
 

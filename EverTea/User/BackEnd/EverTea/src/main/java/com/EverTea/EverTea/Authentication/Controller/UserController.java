@@ -4,6 +4,7 @@ import com.EverTea.EverTea.Authentication.model.User;
 import com.EverTea.EverTea.Authentication.model.UserPricipal;
 import com.EverTea.EverTea.Authentication.services.JwtService;
 import com.EverTea.EverTea.Authentication.services.UserService;
+import com.EverTea.EverTea.PlantationInstructionFCM.UserDevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -114,5 +115,27 @@ public class UserController {
         }
         userService.updateUser(user);
         return ResponseEntity.ok("User updated successfully");
+    }
+
+    // Register a device for the user
+    @PostMapping("/device/register")
+    public ResponseEntity<UserDevice> registerDevice(@RequestParam String email, @RequestParam String fcmToken, @RequestParam String deviceType) {
+        UserDevice registeredDevice = userService.registerDevice(email, fcmToken, deviceType);
+        return ResponseEntity.ok(registeredDevice);
+    }
+
+    // Get all devices registered to a user
+    @GetMapping("/devices")
+    public ResponseEntity<List<UserDevice>> getUserDevices(@RequestParam String email) {
+
+        List<UserDevice> devices = userService.getUserDevices(email);
+        return ResponseEntity.ok(devices);
+    }
+
+    // Delete a device by its FCM token
+    @DeleteMapping("/device/delete")
+    public ResponseEntity<String> deleteDevice(@RequestParam String fcmToken) {
+        userService.deleteDevice(fcmToken);
+        return ResponseEntity.ok("Device deleted successfully");
     }
 }

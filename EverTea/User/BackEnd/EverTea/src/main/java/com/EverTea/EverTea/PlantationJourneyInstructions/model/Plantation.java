@@ -51,6 +51,26 @@ public class Plantation {
         return plantationId;
     }
 
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
+    }
+
+    public void setPlantationId(long plantationId) {
+        this.plantationId = plantationId;
+    }
+
+    public int getPlantasCount() {
+        return plantasCount;
+    }
+
+    public void setPlantasCount(int plantasCount) {
+        this.plantasCount = plantasCount;
+    }
+
     public void setPlantationId(Long plantationId) {
         this.plantationId = plantationId;
     }

@@ -1,4 +1,4 @@
-package com.EverTea.EverTea.PlantationInstructionFCM;
+package com.EverTea.EverTea.PlantationInstructionFCM.repo;
 
 import com.EverTea.EverTea.Authentication.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
