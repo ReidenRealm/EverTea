@@ -1,11 +1,15 @@
 package com.EverTea.EverTea.AdvancedWeather.service;
 
 import com.EverTea.EverTea.AdvancedWeather.DTO.LocationAndTokenReceiver;
+
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
+import com.EverTea.EverTea.Config.FireBaseConfig;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -16,8 +20,14 @@ import java.util.Map;
 public class FirebaseMessagingService {
 
     String token;
+
+
     @Autowired
-    private FirebaseMessaging firebaseMessaging;
+    private FireBaseConfig fireBaseConfig;
+    @Qualifier("firebaseMessagingWeather")
+    @Autowired
+    private FirebaseMessaging firebaseMessagingWeather;
+
 
     public void getTokenFromController(LocationAndTokenReceiver receiver){
         token = receiver.getFcmToken();
@@ -43,7 +53,7 @@ public class FirebaseMessagingService {
                 .build();
 
         try{
-            firebaseMessaging.send(message);
+            firebaseMessagingWeather.send(message);
             return "Success sending notification";
         }catch (FirebaseMessagingException e){
             e.printStackTrace();
