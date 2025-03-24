@@ -64,7 +64,7 @@ public class PlantationService {
     public void scanPlantationsForInstructing(){
         List<Plantation> plantationList = plantationRepository.findAll(); //get all the plantations from plantation table and store a List.
         System.out.println(plantationList);
-       // firebaseInstructionService.sendInstructionNotification("dqZ8jf9tQ7C0rsSlv3TO5L:APA91bEy0kSax2zyNfYjvtpv-X7g0FZg1sZUAbThaHqGvXZebf5LvWeVqxFyD4i4Y4Xn-UiYM13uCn39P5EBbLXuV21F88DegV7feZxf66UZ6VNFPjr30QY", "Nethum","fertilizing", "watering perfect");
+
         for(Plantation plantation : plantationList){
 
             System.out.println(plantation.getPlantationName());
@@ -147,6 +147,7 @@ public class PlantationService {
     }
 
     private void executeInstruction(Plantation plantation,String plantationName, String action, String details, List<String> userTokens) {
+        firebaseInstructionService.sendInstructionNotification("dqZ8jf9tQ7C0rsSlv3TO5L:APA91bEy0kSax2zyNfYjvtpv-X7g0FZg1sZUAbThaHqGvXZebf5LvWeVqxFyD4i4Y4Xn-UiYM13uCn39P5EBbLXuV21F88DegV7feZxf66UZ6VNFPjr30QY", "Nethum",action, details);
         System.out.println("--------------Instruction Execution---------------");
         System.out.println("Plantation Name : "+plantationName);
         System.out.println("Action : "+ action);

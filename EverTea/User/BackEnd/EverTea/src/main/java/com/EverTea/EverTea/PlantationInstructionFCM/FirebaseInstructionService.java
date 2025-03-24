@@ -29,6 +29,7 @@ public class FirebaseInstructionService {
         // Build the notification message payload
         String title = plantationName + " Instruction: " + action + "!";
         String body = details + "\nPlease proceed with the task.";
+        System.out.println(token +"  "+plantationName+ " "+action + "888888888888888888888" );
 
         Notification notification = Notification.builder()
                 .setTitle(title)
@@ -42,9 +43,11 @@ public class FirebaseInstructionService {
                 .putAllData(createInstructionData(plantationName, action, details))  // Add additional data if needed
                 .build();
 
+
         // Send the message through FirebaseMessaging
         try {
             firebaseMessaging.send(message);
+            System.out.println("Instruction notification sent successfully!999999999999999999999");
             return "Instruction notification sent successfully!";
         } catch (FirebaseMessagingException e) {
             e.printStackTrace();
