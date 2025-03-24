@@ -4,12 +4,12 @@ import NotificationName from './NotificationName';
 import NotificationMessage from './NotificationMessage';
 import NavigationBar from './NavigationBar';
 
-const DownPageHome = () => {
+const DownPageHome = ({notification}: {notification: string | null}) => {
   return (
     <View style={styles.container}>
       <Text>
-        <NotificationMessage/>
-        {/* <NotificationName/>  */}
+        <NotificationMessage newNotification={notification} />
+        <NotificationName/> 
         
       </Text>
       <NavigationBar/>
