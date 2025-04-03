@@ -14,6 +14,7 @@ import com.EverTea.EverTea.PlantationJourneyInstructions.repo.InstructionReposit
 import com.EverTea.EverTea.PlantationJourneyInstructions.repo.TeaTypeRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import com.EverTea.EverTea.PlantationJourneyInstructions.repo.PlantationRepository;
@@ -218,7 +219,7 @@ public class PlantationService {
     }
 
 
-
+    @Async("plantationTaskExecutor")
     @Scheduled(fixedRate = 6000)
     public void scanPlantations() throws JsonProcessingException{
         scanPlantationsForInstructing();

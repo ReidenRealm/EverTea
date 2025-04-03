@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -42,8 +43,9 @@ public class WeatherService {
     }
 
 
+    @Async("weatherTaskExecutor")
     @Scheduled(fixedRate = 10000, initialDelay = 6000)
-    private void displayWeatherData(){
+    public void displayWeatherData(){
 
         // prevent the program execute until get the API response
         if(latitude == 0 && longitude == 0){
