@@ -45,7 +45,7 @@ const Contact = () => {
           </div>
         </div>
 
-        <div className='sosMessage'>SOS Messages Tracker</div>
+        <div className='sosMessage'>Alert Messages Tracker</div>
 
         <div className='sosText'>
           <div className='command'>Message</div>
